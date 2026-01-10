@@ -70,7 +70,7 @@ function Scrollable() {
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
-      > <span className='text-[12px] text-gray-500 text-center font-medium'>{(100-temp-1)*40+3000}k</span></div>
+      > <span className='text-[12px] text-gray-500 text-center font-medium'>{(100-temp)*40+3000}k</span></div>
         </div>
         
     </div>
