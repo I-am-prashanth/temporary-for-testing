@@ -27,7 +27,7 @@ function Scrollable() {
     const y = e.clientY - rect.top; // distance from top
     let pct = Math.min(100, Math.max(0, (y / rect.height) * 100));
     // pct=pct*2000 + 1000
-    pct=parseInt(pct)+1
+    pct=parseInt(pct+"")
     console.log(pct)
     settemp(pct);
   };
