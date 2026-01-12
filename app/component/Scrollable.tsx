@@ -2,8 +2,8 @@
 import React, { useRef, useState } from 'react'
 
 function Scrollable() {
-    const [value, setValue] = useState(50); // percentage 0-100
-    const [temp, settemp] = useState(50);
+    const [value, setValue] = useState<number>(50); // percentage 0-100
+    const [temp, settemp] = useState<number>(50);
     const sliderRef = useRef<HTMLDivElement>(null);
     const sliderTemp = useRef<HTMLDivElement>(null);
 
@@ -14,8 +14,7 @@ function Scrollable() {
     const rect = slider.getBoundingClientRect();
     const y = e.clientY - rect.top; // distance from top
     let pct = Math.min(100, Math.max(0, (y / rect.height) * 100));
-    pct=parseInt(pct +"")
-
+    pct=parseInt(pct+"");
     setValue(pct);
   };
 
@@ -26,10 +25,8 @@ function Scrollable() {
     const rect = slider.getBoundingClientRect();
     const y = e.clientY - rect.top; // distance from top
     let pct = Math.min(100, Math.max(0, (y / rect.height) * 100));
-    // pct=pct*2000 + 1000
     pct=parseInt(pct+"")
-    console.log(pct)
-    settemp(pct);
+    settemp(100-pct);
   };
 
   return (
@@ -47,7 +44,7 @@ function Scrollable() {
     >
       <div
         className="absolute left-0 bottom-0 w-full bg-blue-500 rounded-b-xl transition-all"
-        style={{ height: `${100 - value}%` }}
+        style={{ height: `${100-value}%` }}
       />
 
       <div
@@ -66,7 +63,7 @@ function Scrollable() {
             <div
         className="absolute w-[60%] h-4 bg-white rounded-full z-10 left-[20%] top-[48%] flex items-center justify-center shadow-[2px_2px_8px_rgba(0,0,0,0.2)]"
         style={{
-          top: `${temp}%`,
+          top: `${100-temp}%`,
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
