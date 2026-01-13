@@ -4,19 +4,26 @@ import { MdOutlinePhoneIphone } from "react-icons/md";
 import { FaEyeSlash,FaRegEye,FaLock   } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { CurrentPage } from '../store/Page';
-// import { LockClosedIcon, EyeIcon, EyeSlashIcon, PhoneIcon } from "@heroicons/react/24/outline";
 function Signup() {
     const [LoginOption,setLoginOption]=useState<boolean>(true);
     const [canSeepassword,setcanSeepasseord]=useState<boolean>(true)
     const {setCurrentPage } = CurrentPage();
+    const [user,setuser]=useState("");
+    const [password,setPassword]=useState("");
+        const login=(e: React.MouseEvent<HTMLButtonElement>)=>{
+            e.preventDefault();
+            console.log(user);
+            console.log(password)
+        }
   return (
     <div>
-      <form className="space-y-4 max-w-sm mx-auto mt-20 w-[30vw]">
+      <form className="space-y-4 max-w-sm mx-auto md:mt-20 w-full md:w-full md:mx-0 lg:w-[30vw] lg:ml-0" autoComplete="off">
 
         <div className="flex items-center space-x-2">
                 <input id="agree" type="checkbox" className="h-4 w-4 rounded border-gray-300 focus:ring-green-500"
+                defaultChecked={LoginOption}
                 onChange={(e)=>{setLoginOption(e.target.checked)}} />
-                <legend>Register with {LoginOption?"Email":"phone number"} </legend>
+                <legend>Register with phone number </legend>
             </div>
 
 
@@ -28,14 +35,29 @@ function Signup() {
             <span >
                  {LoginOption?(<MdOutlinePhoneIphone className="w-5 h- text-white" />):(<IoMdMail className="w-5 h- text-white" />)}
             </span>
-            {LoginOption &&
-                <button className='' onClick={(e)=>{e.preventDefault()
+            { LoginOption &&
+                <button className={LoginOption ? "block" : "hidden"} onClick={(e)=>{e.preventDefault()
                     console.log("pressed")
                    }} >(+1)</button>
                   }
         </div>
-        <input type="email" className={` w-full  py-2 border rounded-full ${LoginOption?"pl-18":"pl-10"}  focus:ring-blue-500 border-0
-            bg-white/30 text-white `} placeholder={LoginOption?"1234567890":"example@gmail.com" }></input>
+        {LoginOption ? (
+  <input
+    type="email"
+    className={`w-full py-2 rounded-full ${LoginOption ? "pl-18" : "pl-10"} focus:ring-blue-500 border-0 bg-white/20 text-white`}
+    placeholder="1234567890"
+    value={user}
+    onChange={(e) => setuser(e.target.value)}
+  />
+) : (
+  <input
+    type="text"
+    className={`w-full py-2 rounded-full ${LoginOption ? "pl-18" : "pl-10"} focus:ring-blue-500 border-0 bg-white/20 text-white`}
+    placeholder="example@gmail.com"
+    value={user}
+    onChange={(e) => setuser(e.target.value)}
+  />
+)}
         </div>
 
 
@@ -46,8 +68,8 @@ function Signup() {
                 
                 
             </div>
-             <input type={canSeepassword?"email":"password"} className=" w-full px-3 py-2 border rounded-full pl-12 pr-12  focus:ring-blue-500 border-0
-    bg-white/30 text-white " placeholder="Password" ></input>
+             <input type={canSeepassword?"name":"password"} className=" w-full px-3 py-2  rounded-full pl-12 pr-12  focus:ring-blue-500 border-0
+    bg-white/20 text-white " placeholder="**************"  value={password} onChange={(e)=>{setPassword(e.target.value)}} />
             <span className='absolute right-4 top-3' >
                 <button onClick={(e)=>{e.preventDefault()
                     setcanSeepasseord(!canSeepassword)
@@ -73,8 +95,8 @@ function Signup() {
                 
                 
             </div>
-             <input type={canSeepassword?"email":"password"} className=" w-full px-3 py-2 border rounded-full pl-12 pr-12  focus:ring-blue-500 border-0
-    bg-white/30 text-white " placeholder="confirm password" ></input>
+             <input type={canSeepassword?"name":"password"} className=" w-full px-3 py-2 rounded-full pl-12 pr-12  focus:ring-blue-500 border-0
+    bg-white/20 text-white " placeholder="confirm password" ></input>
             <span className='absolute right-4 top-3' >
                 <button onClick={(e)=>{e.preventDefault()
                     setcanSeepasseord(!canSeepassword)
@@ -93,17 +115,16 @@ function Signup() {
 
   
 
-  <button type="submit" className="w-full mt-4 py-2 bg-white text-black font-bold rounded-full 
-                    hover:bg-black hover:text-white">
+  <button type="submit" className="w-full  py-2 bg-white text-black font-bold rounded-full mt-16
+                    hover:bg-black hover:text-white" onClick={(e: React.MouseEvent<HTMLButtonElement>) => login(e)}>
     Submit
   </button>
   
-  <div className='ml-[20%] mt-10'>
-  <span >You  have account? <button onClick={(e)=>{
-    e.preventDefault();
-    console.log("pressed")
-    setCurrentPage("Login")
-  }} className='font-bold hover:cursor-pointer'>Login</button></span>
+  <div className='ml-[30%] mt-20'>
+  <span className='text-[15px] text-gray-400'>You  have account? <button  className='font-bold hover:cursor-pointer text-white' onClick={(e)=>{
+        e.preventDefault();
+        setCurrentPage("login")
+      }}>Login</button></span>
   </div>
       </form>
     </div>
